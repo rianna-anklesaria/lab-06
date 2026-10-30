@@ -22,7 +22,7 @@ knitr::include_graphics("img/Speaking-the-world.jpg")
 ```
 
 _Write your comments about image 1 below_
-
+The plots are not to scale with the values they represent.The number of chinese speakers is significantly larger than that of english and Spanish.
 
 
 
@@ -33,7 +33,7 @@ knitr::include_graphics("img/rose-pop-density-total-area-bw.jpg")
 ```
 
 _Write your comments about image 2 below_
-
+The slices are all different heights so the data visualization is not appealing and not readable.The circle in the middle is unnecessary and if it had different colors for each slice it would be easily distinguishable. 
 
 
 
@@ -44,7 +44,7 @@ knitr::include_graphics("img/life-expectancy-rule-of-law.png")
 ```
 
 _Write your comments about image 3 below_
-
+All the colors overlap and its hard to read what each dot represents. There should be a key so that the readers know what each color represents.The reasons for 
 
 
 
@@ -55,7 +55,7 @@ knitr::include_graphics("img/global-income-dist.PNG")
 ```
 
 _Write your comments about image 4 below_
-
+The data should be classified in a better way either by region or country. it is very vague and has to many categories. like developed counties then regions and individual coutries cannot go together. The x axis is very scattered. 
 
 
 # Data Visualization for Halloween 
@@ -84,8 +84,9 @@ How many observations and variables are in this dataset?
 Did you identify the type of variables, remember that this detail is crucial to create which kind of data visualization in general. 
 
 _Write your comments about results_
-
+So we can see 85 rows which means 85 obsevations and 13 coloums which means 13 variables.
 # Data viz - One variable at a time
+The different variables are logical, character and double.
 
 Just to use the logical variables as categories, run the following code chunk first!
 
@@ -99,19 +100,44 @@ candy_df <- candy_df %>%
 Complete the following code to get the data viz to represent "how many candies contain caramel via bar plot". Fill in the blanks, remove the # symbol in front of your code and the execute the code chunk via green play button.
 
 ```{r}
-# ggplot(candy_rankings, aes(x = ______)) +
-#  _____() +
+ggplot(candy_rankings, aes(x = caramel)) +
+geom_bar() +
+     labs(title = "Number of Candies that Contain Caramel")
 ```
+In exersise 2 we can see that aroiund 70 candies do not have caramel and around 20 do have caramel.
 
 ## Exercise 3
 
 Now look at a numerical variable, such as `winpercent`. Create an histogram for this variable using ggplot2 functions below. Include informative x and y labels and a title, as a good practice.
 
 ```{r}
-# Your code here
+ggplot(candy_df, aes(x = winpercent)) +
+  geom_histogram(
+    fill = "skyblue",
+    colour = "black"
+  ) +
+  labs(
+    title = "Distribution of Candy Win Percentages",
+    x = "Win Percentage",
+    y = "Number of Candies"
+  )
 
 ```
-
+The histogram shows the distribution of candy win percentages. It allows us to identify where most candies are concentrated and whether the distribution is symmetrical or skewed.
+```{r}
+ggplot(candy_df, aes(x = winpercent)) +
+  geom_histogram(
+    binwidth = 20,
+    fill = "skyblue",
+    colour = "black"
+  ) +
+  labs(
+    title = "Candy Win Percentage (Binwidth = 20)",
+    x = "Win Percentage",
+    y = "Number of Candies"
+  )
+```
+Increasing the bin width to 20 creates fewer, wider bars. It makes the data overall easier to see but hides the smaller data set.
 
 # Data viz - more than one variable
 
@@ -122,15 +148,19 @@ How about using the both variables; chocolate vs winpercent? Run the following i
 Fill in the blanks, remove the # symbol in front of your code and the execute the code chunk via green play button.
 
 ```{r}
-# Your code here
-#ggplot(candy_df, aes(x = ___________)) +
-#  geom_histogram() +
-#  facet_wrap(___________)
-
+ggplot(candy_df, aes(x = winpercent, fill = caramel)) +
+ geom_histogram() +
+  facet_wrap(~chocolate)+
+labs(
+    title = "Win Percentage by Chocolate and Caramel",
+    x = "Win Percentage",
+    y = "Number of Candies"
+)
 ```
 
 
-- Consider adding the `fill = caramel` within the aes() vs. geom_histogram(), what do you get? 
+- Consider adding the `fill = caramel` within the aes() vs. geom_histogram(), what do you get?
+Faceting separates the candies into chocolate and non-chocolate categories. Adding caramel as a fill variable allows us to compare the distribution of win percentages according to both chocolate and caramel content.
 
 ## Exercise 5
 
