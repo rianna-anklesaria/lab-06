@@ -167,7 +167,13 @@ Faceting separates the candies into chocolate and non-chocolate categories. Addi
 Create a visualization that examines the relationship between a candy’s win percentage and whether it contains chocolate. Include x and y labels and a title. Describe any relationship you see.
 
 ```{r}
-# your code here
+ggplot(candy_df, aes(x = chocolate, y = winpercent)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(
+    title = "Chocolate Content vs Candy Win Percentage",
+    x = "Contains Chocolate",
+    y = "Win Percentage"
+  )
 
 ```
 
